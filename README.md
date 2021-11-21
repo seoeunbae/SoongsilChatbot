@@ -1,3 +1,3 @@
-# Soongsil_haksik
+# Soongsilhaksik
 
-숭실대 학식 챗봇 서버입니다.
+숭실대학교 학식 챗봇을 위한 서버입니다.
