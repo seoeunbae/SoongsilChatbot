@@ -1,15 +1,14 @@
 package ssu.haksik.haksik.common.response;
 
 import lombok.Getter;
-import ssu.haksik.haksik.common.response.Data;
 
 @Getter
 public class FoodResponse {
-    public FoodResponse(String version, Data data){
+    public FoodResponse(String version, Template template){
         this.version = version;
-        this.data = data;
+        this.template = template;
     }
 
     private String version;
-    private Data data;
+    private Template template;
 }

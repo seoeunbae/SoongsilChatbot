@@ -4,8 +4,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ssu.haksik.haksik.common.crawling.HaksikCrawling;
-import ssu.haksik.haksik.common.response.Data;
 import ssu.haksik.haksik.common.response.FoodResponse;
+import ssu.haksik.haksik.common.response.Outputs;
+import ssu.haksik.haksik.common.response.SimpleText;
+import ssu.haksik.haksik.common.response.Template;
 
 import java.io.IOException;
 
@@ -17,9 +19,14 @@ public class FacultyLoungeController {
     public FoodResponse facultyHaksik() throws IOException {
 
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
+
         String foods = HaksikCrawling.crawling(url,"lunch");
-        Data data = new Data(foods);
-        FoodResponse foodResponse = new FoodResponse("2.0", data);
+        SimpleText simpleText = new SimpleText(foods);
+        Outputs outputs = new Outputs(simpleText);
+        Template template = new Template();
+        template.getOutputs().add(outputs);
+
+        FoodResponse foodResponse = new FoodResponse("2.0", template);
         return foodResponse;
     }
 }

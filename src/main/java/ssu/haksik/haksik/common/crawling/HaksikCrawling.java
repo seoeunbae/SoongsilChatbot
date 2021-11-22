@@ -58,6 +58,12 @@ public class HaksikCrawling {
                     if(foods.contains(" - 6.0")){
                         foods = foods.replace(" - 6.0","");
                     }
+                    if(foods.contains("-5.0")){
+                        foods = foods.replace("-5.0","");
+                    }
+                    if(foods.contains(" - 5.0")){
+                        foods = foods.replace(" - 5.0","");
+                    }
                     sb.append(foods+"\n");
                 }
             }
