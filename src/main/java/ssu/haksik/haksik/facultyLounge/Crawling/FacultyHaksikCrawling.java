@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.facultyLounge;
+package ssu.haksik.haksik.facultyLounge.Crawling;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -59,7 +59,6 @@ public class FacultyHaksikCrawling {
             }
         }
         String foods = sb.toString();
-        System.out.println(foods);
         return foods;
     }
 }
