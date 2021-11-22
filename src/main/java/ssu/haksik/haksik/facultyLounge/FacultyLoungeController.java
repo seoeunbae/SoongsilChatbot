@@ -18,9 +18,8 @@ public class FacultyLoungeController {
     @PostMapping()
     public FoodResponse facultyHaksik() throws IOException {
 
-        String formatDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
-        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt="+formatDate;
-        String foods = FacultyHaksikCrawling.crawling(url);
+        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
+        String foods = FacultyHaksikCrawling.crawling(url,"lunch");
         Data data = new Data(foods);
         FoodResponse foodResponse = new FoodResponse("2.0", data);
         return foodResponse;

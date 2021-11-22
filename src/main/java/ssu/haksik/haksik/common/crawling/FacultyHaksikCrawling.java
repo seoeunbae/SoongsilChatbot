@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 
 public class FacultyHaksikCrawling {
 
-    public static String crawling(String url) throws IOException {
+    public static String crawling(String url, String eatingTime) throws IOException {
 
         LocalDateTime date = LocalDateTime.now();
         DayOfWeek day = date.getDayOfWeek();
@@ -22,9 +22,15 @@ public class FacultyHaksikCrawling {
             return "주말은 운영하지 않습니다.";
         }
 
-        Document document = Jsoup.connect(url).get();
+        int time =0; // 0은 점심 1은 저녁
+        if(eatingTime.equals("dinner")){
+            time = 1;
+        }
+        String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
+        String todayUrl = url.concat(formatDate);
+        Document document = Jsoup.connect(todayUrl).get();
         Elements elements = document.getElementsByAttributeValue("class", "menu_list");
-        Element element = elements.get(0);
+        Element element = elements.get(time);
         Elements div = element.getElementsByTag("div");
         int size = div.size();
 
