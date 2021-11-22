@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class FacultyHaksikCrawling {
+public class HaksikCrawling {
 
     public static String crawling(String url, String eatingTime) throws IOException {
 
