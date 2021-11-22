@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 
 public class FacultyHaksikCrawling {
 
-    public static String crawling() throws IOException {
+    public static String crawling(String url) throws IOException {
 
         LocalDateTime date = LocalDateTime.now();
         DayOfWeek day = date.getDayOfWeek();
@@ -21,10 +21,8 @@ public class FacultyHaksikCrawling {
         if(today.equals("SUNDAY") || today.equals("SATURDAY")){
             return "주말은 운영하지 않습니다.";
         }
-        String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
 
-        String URL = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt="+formatDate;
-        Document document = Jsoup.connect(URL).get();
+        Document document = Jsoup.connect(url).get();
         Elements elements = document.getElementsByAttributeValue("class", "menu_list");
         Element element = elements.get(0);
         Elements div = element.getElementsByTag("div");

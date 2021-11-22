@@ -8,14 +8,19 @@ import ssu.haksik.haksik.common.response.Data;
 import ssu.haksik.haksik.common.response.FoodResponse;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
-@RequestMapping("/faculty")
+@RequestMapping("/haksik/faculty")
 public class FacultyLoungeController {
 
-    @PostMapping("/haksik")
+    @PostMapping()
     public FoodResponse facultyHaksik() throws IOException {
-        String foods = FacultyHaksikCrawling.crawling();
+
+        String formatDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
+        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt="+formatDate;
+        String foods = FacultyHaksikCrawling.crawling(url);
         Data data = new Data(foods);
         FoodResponse foodResponse = new FoodResponse("2.0", data);
         return foodResponse;
