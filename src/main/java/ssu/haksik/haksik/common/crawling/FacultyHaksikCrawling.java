@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.facultyLounge.Crawling;
+package ssu.haksik.haksik.common.crawling;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

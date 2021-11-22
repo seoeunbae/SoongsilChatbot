@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.facultyLounge.JsonForOpenBuilder;
+package ssu.haksik.haksik.common.response;
 
 import lombok.Getter;
 

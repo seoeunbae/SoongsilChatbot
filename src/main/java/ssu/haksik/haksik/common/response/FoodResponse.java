@@ -1,6 +1,7 @@
-package ssu.haksik.haksik.facultyLounge.JsonForOpenBuilder;
+package ssu.haksik.haksik.common.response;
 
 import lombok.Getter;
+import ssu.haksik.haksik.common.response.Data;
 
 @Getter
 public class FoodResponse {

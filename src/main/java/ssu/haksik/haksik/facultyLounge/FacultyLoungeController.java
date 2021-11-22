@@ -3,9 +3,9 @@ package ssu.haksik.haksik.facultyLounge;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ssu.haksik.haksik.facultyLounge.Crawling.FacultyHaksikCrawling;
-import ssu.haksik.haksik.facultyLounge.JsonForOpenBuilder.Data;
-import ssu.haksik.haksik.facultyLounge.JsonForOpenBuilder.FoodResponse;
+import ssu.haksik.haksik.common.crawling.FacultyHaksikCrawling;
+import ssu.haksik.haksik.common.response.Data;
+import ssu.haksik.haksik.common.response.FoodResponse;
 
 import java.io.IOException;
 
