@@ -20,9 +20,8 @@ public class FacultyLoungeController {
 
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
 
-        String foods = HaksikCrawling.crawling(url,"lunch");
+        String menuBoard = HaksikCrawling.crawling(url,"lunch");
 
-        String menuBoard = "<오늘의 메뉴>\n\n"+foods;
         SimpleText simpleText = new SimpleText(menuBoard);
         Outputs outputs = new Outputs(simpleText);
         Template template = new Template();
