@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class FacultyHaksikCrawling {
+public class HaksikCrawling {
 
     public static String crawling(String url, String eatingTime) throws IOException {
 
@@ -22,9 +22,9 @@ public class FacultyHaksikCrawling {
             return "주말은 운영하지 않습니다.";
         }
 
-        int time =0; // 0은 점심 1은 저녁
-        if(eatingTime.equals("dinner")){
-            time = 1;
+        int time = 1; // 0은 점심 1은 저녁
+        if(eatingTime.equals("lunch")){
+            time = 0;
         }
         String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
         String todayUrl = url.concat(formatDate);
