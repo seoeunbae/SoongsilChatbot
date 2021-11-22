@@ -69,6 +69,7 @@ public class HaksikCrawling {
             }
         }
         String foods = sb.toString();
-        return foods;
+        String menuBoard = "<오늘의 메뉴>\n\n"+foods;
+        return menuBoard;
     }
 }
