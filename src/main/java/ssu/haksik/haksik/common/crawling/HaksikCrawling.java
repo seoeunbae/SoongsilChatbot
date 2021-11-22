@@ -52,6 +52,12 @@ public class HaksikCrawling {
                     if(foods.charAt(1)>=65 && foods.charAt(1)<=122){
                         continue;
                     }
+                    if(foods.contains("*") && foods.contains("-6.0")){
+                        foods = "메인메뉴: ".concat(foods);
+                    }
+                    if(foods.contains("*") && foods.contains("-5.0")){
+                        foods = "메인메뉴: ".concat(foods);
+                    }
                     if(foods.contains("-6.0")){
                         foods = foods.replace("-6.0","");
                     }
