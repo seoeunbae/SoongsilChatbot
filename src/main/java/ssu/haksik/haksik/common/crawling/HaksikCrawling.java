@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 
 public class HaksikCrawling {
 
-    public static String crawling(String url, String eatingTime) throws IOException {
+    public static String crawling(String url, EatingTime eatingTime) throws IOException {
 
         LocalDateTime date = LocalDateTime.now();
         DayOfWeek day = date.getDayOfWeek();
@@ -22,10 +22,7 @@ public class HaksikCrawling {
             return "주말은 운영하지 않습니다.";
         }
 
-        int time = 1; // 0은 점심 1은 저녁
-        if(eatingTime.equals("lunch")){
-            time = 0;
-        }
+        int time = eatingTime.ordinal();
         String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
         String todayUrl = url.concat(formatDate);
         Document document = Jsoup.connect(todayUrl).get();
@@ -69,7 +66,7 @@ public class HaksikCrawling {
             }
         }
         String foods = sb.toString();
-        String menuBoard = "<오늘의 메뉴>\n\n"+foods;
+        String menuBoard = "<오늘의 메뉴>\n\n".concat(foods);
         return menuBoard;
     }
 }

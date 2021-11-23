@@ -3,6 +3,7 @@ package ssu.haksik.haksik.facultyLounge;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ssu.haksik.haksik.common.crawling.EatingTime;
 import ssu.haksik.haksik.common.crawling.HaksikCrawling;
 import ssu.haksik.haksik.common.response.FoodResponse;
 import ssu.haksik.haksik.common.response.Outputs;
@@ -20,7 +21,7 @@ public class FacultyLoungeController {
 
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
 
-        String menuBoard = HaksikCrawling.crawling(url,"lunch");
+        String menuBoard = HaksikCrawling.crawling(url, EatingTime.lunch);
 
         SimpleText simpleText = new SimpleText(menuBoard);
         Outputs outputs = new Outputs(simpleText);
