@@ -1,10 +1,10 @@
-package ssu.haksik.haksik.facultyLounge;
+package ssu.haksik.haksik.gisik;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ssu.haksik.haksik.common.crawling.EatingTime;
-import ssu.haksik.haksik.common.crawling.HaksikCrawling;
+import ssu.haksik.haksik.common.crawling.*;
 import ssu.haksik.haksik.common.response.FoodResponse;
 import ssu.haksik.haksik.common.response.Outputs;
 import ssu.haksik.haksik.common.response.SimpleText;
@@ -13,17 +13,13 @@ import ssu.haksik.haksik.common.response.Template;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/haksik/faculty")
-public class FacultyLoungeController {
-
+@RequestMapping("/gisik")
+public class GisikController {
     @PostMapping()
-    public FoodResponse facultyHaksik() throws IOException {
+    public FoodResponse dodamHaksik(@RequestParam("day") EatingDay eatingDay, @RequestParam("time") GisikEatingTime eatingTime) throws IOException {
 
-        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
-
-        String menuBoard = HaksikCrawling.crawling(url, EatingTime.lunch);
-
-        SimpleText simpleText = new SimpleText(menuBoard);
+        String foods = GisikCrawling.gisikCrawling(eatingDay,eatingTime);
+        SimpleText simpleText = new SimpleText(foods);
         Outputs outputs = new Outputs(simpleText);
         Template template = new Template();
         template.getOutputs().add(outputs);
@@ -31,5 +27,4 @@ public class FacultyLoungeController {
         FoodResponse foodResponse = new FoodResponse("2.0", template);
         return foodResponse;
     }
-
 }
