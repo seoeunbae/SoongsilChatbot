@@ -31,4 +31,19 @@ public class FacultyLoungeController {
         FoodResponse foodResponse = new FoodResponse("2.0", template);
         return foodResponse;
     }
+
+    @PostMapping("/test")
+    public FoodResponse facultyTest() throws IOException{
+        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
+
+        String menuBoard = HaksikCrawling.crawling(url, EatingTime.lunch);
+
+        SimpleText simpleText = new SimpleText(menuBoard);
+        Outputs outputs = new Outputs(simpleText);
+        Template template = new Template();
+        template.getOutputs().add(outputs);
+
+        FoodResponse foodResponse = new FoodResponse("2.0", template);
+        return foodResponse;
+    }
 }
