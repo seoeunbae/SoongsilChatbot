@@ -13,6 +13,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/haksik/dodam")
 public class DodamController {
+
     @PostMapping()
     public FoodResponse dodamHaksik(@RequestParam("time") EatingTime eatingTime) throws IOException {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
