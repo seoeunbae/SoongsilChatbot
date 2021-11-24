@@ -20,7 +20,7 @@ public class GisikCrawling {
         Elements tr = element.select("tr");
         Elements td = tr.get(day).getElementsByTag("td");
         Element timeElement = td.get(time);
-        String result= timeElement.html().replace("<br>","\n");
+        String result= timeElement.html().replace("<br>","\n").replace(" ","").replace("&amp;","&");
         return result;
     }
 }
