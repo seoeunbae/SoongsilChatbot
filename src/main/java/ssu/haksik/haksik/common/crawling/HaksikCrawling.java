@@ -22,7 +22,7 @@ public class HaksikCrawling {
         }
 
         int time = eatingTime.ordinal()-1;
-        String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
+        String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String todayUrl = url.concat(formatDate);
         Document document = Jsoup.connect(todayUrl).get();
         Elements elements = document.getElementsByAttributeValue("class", "menu_list");
