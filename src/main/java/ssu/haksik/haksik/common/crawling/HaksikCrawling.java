@@ -1,7 +1,6 @@
 package ssu.haksik.haksik.common.crawling;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +21,7 @@ public class HaksikCrawling {
             return "주말은 운영하지 않습니다.";
         }
 
-        int time = eatingTime.ordinal();
+        int time = eatingTime.ordinal()-1;
         String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 20190513으로 출력 System.out.println(formatDate);
         String todayUrl = url.concat(formatDate);
         Document document = Jsoup.connect(todayUrl).get();

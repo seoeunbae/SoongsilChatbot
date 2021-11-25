@@ -16,9 +16,8 @@ import java.io.IOException;
 @RequestMapping("/gisik")
 public class GisikController {
     @PostMapping()
-    public FoodResponse dodamHaksik(@RequestParam("day") EatingDay eatingDay, @RequestParam("time") GisikEatingTime eatingTime) throws IOException {
-
-        String foods = GisikCrawling.gisikCrawling(eatingDay,eatingTime);
+    public FoodResponse gisik(@RequestParam("time") EatingTime eatingTime) throws IOException {
+        String foods = GisikCrawling.gisikCrawling(eatingTime);
         SimpleText simpleText = new SimpleText(foods);
         Outputs outputs = new Outputs(simpleText);
         Template template = new Template();
