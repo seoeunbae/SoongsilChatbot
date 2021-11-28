@@ -22,19 +22,22 @@ public class HaksikCrawling {
         }
 
         int time = eatingTime.ordinal()-1;
+        System.out.println(time);
         String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String todayUrl = url.concat(formatDate);
         Document document = Jsoup.connect(todayUrl).get();
         Elements elements = document.getElementsByAttributeValue("class", "menu_list");
         Element element = elements.get(time);
+        System.out.println("element = " + element);
         Elements div = element.getElementsByTag("div");
+        System.out.println("div = " + div);
         int size = div.size();
 
         boolean start = false;
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < size; i++){
-            if(div.get(i).getElementsContainingText("*").hasText() || div.get(i).getElementsContainingText("6.0").hasText()){
+            if(div.get(i).getElementsContainingText("*").hasText() || div.get(i).getElementsContainingText("5.0").hasText()){
                 start = true;
             }
 
@@ -64,6 +67,7 @@ public class HaksikCrawling {
                 }
             }
         }
+        System.out.println(sb.toString());
         String foods = sb.toString();
         String menuBoard = "<오늘의 메뉴>\n\n".concat(foods);
         return menuBoard;
