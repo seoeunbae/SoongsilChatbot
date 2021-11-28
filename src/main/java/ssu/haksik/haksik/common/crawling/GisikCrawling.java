@@ -16,8 +16,12 @@ public class GisikCrawling {
         Elements elements = document.getElementsByAttributeValue("class", "boxstyle02");
         Element element = elements.get(0);
 
+
         DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
         int day = dayOfWeek.getValue();
+        if (day==7){
+            return "일요일식단은 기말고사 이후에 구현예정입니다.\n 월요일 ~ 토요일 식단은 정상작동합니다.";
+        }
         int time = eatingTime.ordinal();
 
         Elements tr = element.select("tr");

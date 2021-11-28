@@ -35,6 +35,7 @@ public class HaksikCrawling {
 
         for (int i = 0; i < size; i++){
             if(div.get(i).getElementsContainingText("*").hasText() || div.get(i).getElementsContainingText("6.0").hasText() || div.get(i).getElementsContainingText("5.0").hasText()){
+
                 start = true;
             }
 
