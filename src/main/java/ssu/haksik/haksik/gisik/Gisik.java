@@ -27,4 +27,6 @@ public class Gisik {
     public String getFoods(){
         return foods;
     }
+
+    public void setFoods(String foods) { this.foods = foods; }
 }

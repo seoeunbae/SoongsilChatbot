@@ -12,6 +12,7 @@ import ssu.haksik.haksik.gisik.GisikRepository;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class GisikCrawling {
@@ -32,7 +33,6 @@ public class GisikCrawling {
 
     @Scheduled(cron = "0 0 1 * * 1")
     private void saveGisik() throws IOException {
-        System.out.println("ehlsek");
         Elements tr= this.crawling();
         for (int day=1;day<8;day++) {
             Elements td = tr.get(day).getElementsByTag("td");
@@ -40,9 +40,15 @@ public class GisikCrawling {
                 Element timeElement = td.get(time);
                 String foods = timeElement.html().replace("<br>", "\n").replace(" ", "").replace("&amp;", "&");
                 String result = "<오늘의 메뉴>\n\n".concat(foods);
+                Gisik gisikExist = this.gisikRepository.findByEatingTimeAndDay(day,time);
 
-                Gisik gisik = new Gisik(result, day, time);
-                this.gisikRepository.save(gisik);
+                if (gisikExist == null) {
+                    Gisik gisik = new Gisik(result, day, time);
+                    this.gisikRepository.save(gisik);
+                } else{
+                    Gisik gisik = gisikRepository.findByEatingTimeAndDay(day, time);
+                    gisik.setFoods(result);
+                }
             }
         }
 
