@@ -31,7 +31,7 @@ public class GisikCrawling {
     }
 
     @Scheduled(cron = "0 0 1 * * 1")
-    public void saveGisik() throws IOException {
+    private void saveGisik() throws IOException {
         System.out.println("ehlsek");
         Elements tr= this.crawling();
         for (int day=1;day<8;day++) {
@@ -55,8 +55,6 @@ public class GisikCrawling {
         Gisik gisik =this.gisikRepository.findByEatingTimeAndDay(eatingTime, day);
         return gisik.getFoods();
     }
-
-
 
 
 }
