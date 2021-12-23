@@ -15,9 +15,15 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/gisik")
 public class GisikController {
+    private final GisikCrawling gisikCrawling;
+
+    public GisikController(GisikCrawling gisikCrawling) {
+        this.gisikCrawling = gisikCrawling;
+    }
+
     @PostMapping()
-    public FoodResponse gisik(@RequestParam("time") EatingTime eatingTime) throws IOException {
-        String foods = GisikCrawling.gisikCrawling(eatingTime);
+    public FoodResponse getGisik(@RequestParam("time") int eatingTime) throws IOException {
+        String foods = gisikCrawling.getGisik(eatingTime);
         SimpleText simpleText = new SimpleText(foods);
         Outputs outputs = new Outputs(simpleText);
         Template template = new Template();
