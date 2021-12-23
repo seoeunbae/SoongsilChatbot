@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ssu.haksik.haksik.gisik.Gisik;
 import ssu.haksik.haksik.gisik.GisikRepository;
 
@@ -31,8 +32,9 @@ public class GisikCrawling {
         return tr;
     }
 
+    @Transactional
     @Scheduled(cron = "0 0 1 * * 1")
-    private void saveGisik() throws IOException {
+    void saveGisik() throws IOException {
         Elements tr= this.crawling();
         for (int day=1;day<8;day++) {
             Elements td = tr.get(day).getElementsByTag("td");
@@ -54,6 +56,7 @@ public class GisikCrawling {
 
     }
 
+    @Transactional(readOnly = true)
     public String getGisik(int eatingTime){
         DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
         int day = dayOfWeek.getValue();
