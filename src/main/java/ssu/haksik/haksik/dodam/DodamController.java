@@ -15,7 +15,7 @@ import java.io.IOException;
 public class DodamController {
 
     @PostMapping()
-    public FoodResponse dodamHaksik(@RequestParam("time") EatingTime eatingTime) throws IOException {
+    public FoodResponse dodamHaksik(@RequestParam("time") int eatingTime) throws IOException {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
 
         String foods = HaksikCrawling.crawling(url,eatingTime);

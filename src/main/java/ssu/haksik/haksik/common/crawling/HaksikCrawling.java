@@ -5,14 +5,25 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import ssu.haksik.haksik.dodam.Dodam;
+import ssu.haksik.haksik.dodam.DodamRepository;
 
+
+@Component
+@RequiredArgsConstructor
 public class HaksikCrawling {
 
-    public static String crawling(String url, EatingTime eatingTime) throws IOException {
+    private final DodamRepository dodamRepository;
+
+    public static String crawling(String url, int eatingTime) throws IOException {
 
         LocalDateTime date = LocalDateTime.now();
         DayOfWeek day = date.getDayOfWeek();
@@ -21,13 +32,13 @@ public class HaksikCrawling {
             return "주말은 운영하지 않습니다.";
         }
 
-        int time = eatingTime.ordinal()-1;
+        int time = eatingTime;
         String formatDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String todayUrl = url.concat(formatDate);
         Document document = Jsoup.connect(todayUrl).get();
         Elements lunchAndDinnerMenuListElements = document.getElementsByAttributeValue("class", "menu_list");
         Element menuListElementDividedByTime = lunchAndDinnerMenuListElements.get(time); // 점심 식단과 저녁식단을 구분
-        Elements menuListElements = menuListElementDividedByTime.getElementsByTag("div"); // for문을 몇 번 수행해야 하는지 정하기 위해 총 Element가 총 몇 가지 div로 이루어져 있는지 구한다.
+        Elements menuListElements = menuListElementDividedByTime.getElementsByTag("div"); // for문을 몇 번 수행해야 하는지 정하기 위해 총 Element가 몇 가지의 div로 이루어져 있는지 구한다.
         int size = menuListElements.size();
 
         boolean start = false;
@@ -63,5 +74,21 @@ public class HaksikCrawling {
         String foods = sb.toString();
         String menuBoard = "<오늘의 메뉴>\n\n".concat(foods);
         return menuBoard;
+    }
+
+    @Transactional
+    @Scheduled(cron = "*/59 * * * * *")
+    public void saveDodamFoodMenu() throws IOException{
+        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
+        for (int eatingTime=0; eatingTime<2; eatingTime++) {
+            String dodamFoodMenu = crawling(url, eatingTime);
+            Dodam dodamFoodMenuByTime = dodamRepository.findByEatingTime(eatingTime);
+            if(dodamFoodMenuByTime == null){
+                dodamRepository.save(new Dodam(dodamFoodMenu, eatingTime));
+            }else{
+                dodamFoodMenuByTime.setFoods(dodamFoodMenu);
+                dodamRepository.save(dodamFoodMenuByTime);
+            }
+        }
     }
 }

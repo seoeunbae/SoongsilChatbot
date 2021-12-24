@@ -15,11 +15,11 @@ public class Dodam {
     private String foods;
 
     @Column
-    private EatingTime eatingTime;
+    private int eatingTime;
 
     public Dodam() {}
 
-    public Dodam(String foods, EatingTime eatingtime){
+    public Dodam(String foods, int eatingTime){
         this.foods = foods;
         this.eatingTime = eatingTime;
     }
