@@ -18,15 +18,13 @@ import java.util.List;
 @RequestMapping("/gisik")
 @RequiredArgsConstructor
 public class GisikController {
-    private final GisikCrawling gisikCrawling;
 
-//    public GisikController(GisikCrawling gisikCrawling) {
-//        this.gisikCrawling = gisikCrawling;
-//    }
+    private final GisikService gisikService;
+
 
     @PostMapping("/week")//일주일 식단
     public FoodResponse getThisWeekGisik() throws IOException {
-        String foods = gisikCrawling.getThisWeekGisik();
+        String foods = gisikService.getThisWeekGisik();
         SimpleText simpleText = new SimpleText(foods);
         Outputs outputs = new Outputs(simpleText);
         Template template = new Template();
@@ -39,7 +37,7 @@ public class GisikController {
 
     @PostMapping("/today")
     public FoodResponse getTodayGisik() throws IOException{
-        String foods = gisikCrawling.getTodayGisik();
+        String foods = gisikService.getTodayGisik();
         SimpleText simpleText = new SimpleText(foods);
         Outputs outputs = new Outputs(simpleText);
         Template template = new Template();
