@@ -82,7 +82,7 @@ public class HaksikCrawling {
 
 
     @Transactional
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void saveDodamFoodMenu() throws IOException{
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
         for (int eatingTime=0; eatingTime<2; eatingTime++) {
@@ -97,9 +97,8 @@ public class HaksikCrawling {
         }
     }
 
-
     @Transactional
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void saveFacultyFoodMenu() throws IOException{
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
         String newFacultyFoodMenu = crawling(url, 0);
@@ -108,9 +107,9 @@ public class HaksikCrawling {
             facultyLoungeRepository.save(new FacultyLounge(newFacultyFoodMenu));
             return;
         }else{
-                FacultyLounge facultyFoodMenu = yesterdayFacultyFoodMenu.get();
-                facultyFoodMenu.setFood(newFacultyFoodMenu);
-                facultyLoungeRepository.save(facultyFoodMenu);
-            }
+            FacultyLounge facultyFoodMenu = yesterdayFacultyFoodMenu.get();
+            facultyFoodMenu.setFood(newFacultyFoodMenu);
+            facultyLoungeRepository.save(facultyFoodMenu);
+        }
     }
 }
