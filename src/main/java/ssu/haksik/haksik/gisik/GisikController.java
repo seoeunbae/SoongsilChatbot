@@ -1,35 +1,40 @@
 package ssu.haksik.haksik.gisik;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ssu.haksik.haksik.common.crawling.*;
 import ssu.haksik.haksik.common.response.FoodResponse;
 import ssu.haksik.haksik.common.response.Outputs;
 import ssu.haksik.haksik.common.response.SimpleText;
 import ssu.haksik.haksik.common.response.Template;
 
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/gisik")
+@RequiredArgsConstructor
 public class GisikController {
-    private final GisikCrawling gisikCrawling;
 
-    public GisikController(GisikCrawling gisikCrawling) {
-        this.gisikCrawling = gisikCrawling;
-    }
+    private final GisikService gisikService;
 
-    @PostMapping()
-    public FoodResponse getGisik(@RequestParam("time") int eatingTime) throws IOException {
-        String foods = gisikCrawling.getGisik(eatingTime);
-        SimpleText simpleText = new SimpleText(foods);
-        Outputs outputs = new Outputs(simpleText);
+    private FoodResponse makeResponse(String foods) {
         Template template = new Template();
-        template.getOutputs().add(outputs);
-
-        FoodResponse foodResponse = new FoodResponse("2.0", template);
+        template.getOutputs().add(new Outputs(new SimpleText(foods)));
+        FoodResponse foodResponse = new FoodResponse("2.0",template);
         return foodResponse;
     }
+
+    @PostMapping("/week")
+    public FoodResponse getThisWeekGisik() {
+        String foods = gisikService.getThisWeekGisik();
+        return makeResponse(foods);
+    }
+
+    @PostMapping("/today")
+    public FoodResponse getTodayGisik() {
+        String foods = gisikService.getTodayGisik();
+        return makeResponse(foods);
+    }
+
+
 }
