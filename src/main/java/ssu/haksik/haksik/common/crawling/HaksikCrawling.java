@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ssu.haksik.haksik.dodam.Dodam;
 import ssu.haksik.haksik.dodam.DodamRepository;
+import ssu.haksik.haksik.facultyLounge.FacultyLounge;
+import ssu.haksik.haksik.facultyLounge.FacultyLoungeRepository;
 
 
 @Component
@@ -22,6 +25,8 @@ import ssu.haksik.haksik.dodam.DodamRepository;
 public class HaksikCrawling {
 
     private final DodamRepository dodamRepository;
+    private final FacultyLoungeRepository facultyLoungeRepository;
+
 
     public static String crawling(String url, int eatingTime) throws IOException {
 
@@ -72,23 +77,40 @@ public class HaksikCrawling {
             }
         }
         String foods = sb.toString();
-        String menuBoard = "<오늘의 메뉴>\n\n".concat(foods);
-        return menuBoard;
+        return foods;
     }
 
+
     @Transactional
-    @Scheduled(cron = "*/59 * * * * *")
+    @Scheduled(cron = "*/30 * * * * *")
     public void saveDodamFoodMenu() throws IOException{
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
         for (int eatingTime=0; eatingTime<2; eatingTime++) {
-            String dodamFoodMenu = crawling(url, eatingTime);
+            String newDodamFoodMenu = crawling(url, eatingTime);
             Dodam dodamFoodMenuByTime = dodamRepository.findByEatingTime(eatingTime);
             if(dodamFoodMenuByTime == null){
-                dodamRepository.save(new Dodam(dodamFoodMenu, eatingTime));
+                dodamRepository.save(new Dodam(newDodamFoodMenu, eatingTime));
             }else{
-                dodamFoodMenuByTime.setFoods(dodamFoodMenu);
+                dodamFoodMenuByTime.setFoods(newDodamFoodMenu);
                 dodamRepository.save(dodamFoodMenuByTime);
             }
         }
+    }
+
+
+    @Transactional
+    @Scheduled(cron = "*/30 * * * * *")
+    public void saveFacultyFoodMenu() throws IOException{
+        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
+        String newFacultyFoodMenu = crawling(url, 0);
+        Optional<FacultyLounge> yesterdayFacultyFoodMenu= facultyLoungeRepository.findById(1L);
+        if(yesterdayFacultyFoodMenu.isEmpty()){
+            facultyLoungeRepository.save(new FacultyLounge(newFacultyFoodMenu));
+            return;
+        }else{
+                FacultyLounge facultyFoodMenu = yesterdayFacultyFoodMenu.get();
+                facultyFoodMenu.setFood(newFacultyFoodMenu);
+                facultyLoungeRepository.save(facultyFoodMenu);
+            }
     }
 }

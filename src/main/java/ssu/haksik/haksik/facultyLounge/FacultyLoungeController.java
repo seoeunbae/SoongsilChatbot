@@ -1,5 +1,6 @@
 package ssu.haksik.haksik.facultyLounge;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,22 +15,15 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/haksik/faculty")
+@RequiredArgsConstructor
 public class FacultyLoungeController {
 
+    private final FacultyLoungeService facultyLoungeService;
+
     @PostMapping()
-    public FoodResponse facultyHaksik() throws IOException {
-
-        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
-
-        String menuBoard = HaksikCrawling.crawling(url, 0);
-
-        SimpleText simpleText = new SimpleText(menuBoard);
-        Outputs outputs = new Outputs(simpleText);
-        Template template = new Template();
-        template.getOutputs().add(outputs);
-
-        FoodResponse foodResponse = new FoodResponse("2.0", template);
-        return foodResponse;
+    public FoodResponse getFacultyHaksik() throws IOException {
+        FoodResponse facultyHaksik = facultyLoungeService.getFacultyHaksik();
+        return facultyHaksik;
     }
 
 }

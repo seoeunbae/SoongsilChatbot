@@ -1,5 +1,6 @@
 package ssu.haksik.haksik.dodam;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,19 +13,14 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/haksik/dodam")
+@RequiredArgsConstructor
 public class DodamController {
 
+    private final DodamService dodamService;
+
     @PostMapping()
-    public FoodResponse dodamHaksik(@RequestParam("time") int eatingTime) throws IOException {
-        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
-
-        String foods = HaksikCrawling.crawling(url,eatingTime);
-        SimpleText simpleText = new SimpleText(foods);
-        Outputs outputs = new Outputs(simpleText);
-        Template template = new Template();
-        template.getOutputs().add(outputs);
-
-        FoodResponse foodResponse = new FoodResponse("2.0", template);
-        return foodResponse;
+    public FoodResponse getDodam(@RequestParam int eatingTime){
+        FoodResponse DodamLunchFoods = dodamService.getDodam(eatingTime);
+        return DodamLunchFoods;
     }
 }

@@ -1,7 +1,5 @@
 package ssu.haksik.haksik.gisik;
 
-import ssu.haksik.haksik.common.crawling.EatingTime;
-
 import javax.persistence.*;
 
 @Entity
