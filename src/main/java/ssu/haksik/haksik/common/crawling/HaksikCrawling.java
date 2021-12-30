@@ -24,10 +24,6 @@ import ssu.haksik.haksik.facultyLounge.FacultyLoungeRepository;
 @RequiredArgsConstructor
 public class HaksikCrawling {
 
-    private final DodamRepository dodamRepository;
-    private final FacultyLoungeRepository facultyLoungeRepository;
-
-
     public static String crawling(String url, int eatingTime) throws IOException {
 
         LocalDateTime date = LocalDateTime.now();
@@ -78,38 +74,5 @@ public class HaksikCrawling {
         }
         String foods = sb.toString();
         return foods;
-    }
-
-
-    @Transactional
-    @Scheduled(cron = "0 0 1 * * *")
-    public void saveDodamFoodMenu() throws IOException{
-        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
-        for (int eatingTime=0; eatingTime<2; eatingTime++) {
-            String newDodamFoodMenu = crawling(url, eatingTime);
-            Dodam dodamFoodMenuByTime = dodamRepository.findByEatingTime(eatingTime);
-            if(dodamFoodMenuByTime == null){
-                dodamRepository.save(new Dodam(newDodamFoodMenu, eatingTime));
-            }else{
-                dodamFoodMenuByTime.setFoods(newDodamFoodMenu);
-                dodamRepository.save(dodamFoodMenuByTime);
-            }
-        }
-    }
-
-    @Transactional
-    @Scheduled(cron = "0 0 1 * * *")
-    public void saveFacultyFoodMenu() throws IOException{
-        String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
-        String newFacultyFoodMenu = crawling(url, 0);
-        Optional<FacultyLounge> yesterdayFacultyFoodMenu= facultyLoungeRepository.findById(1L);
-        if(yesterdayFacultyFoodMenu.isEmpty()){
-            facultyLoungeRepository.save(new FacultyLounge(newFacultyFoodMenu));
-            return;
-        }else{
-            FacultyLounge facultyFoodMenu = yesterdayFacultyFoodMenu.get();
-            facultyFoodMenu.setFood(newFacultyFoodMenu);
-            facultyLoungeRepository.save(facultyFoodMenu);
-        }
     }
 }

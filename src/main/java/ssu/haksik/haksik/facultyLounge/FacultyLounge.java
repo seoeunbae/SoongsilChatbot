@@ -12,10 +12,14 @@ public class FacultyLounge {
     @Column
     private String foods;
 
+    @Column
+    private int eatingTime;
+
     public FacultyLounge(){}
 
-    public FacultyLounge(String foods){
+    public FacultyLounge(String foods, int eatingTime) {
         this.foods = foods;
+        this.eatingTime = eatingTime;
     }
 
     public String getFoods(){return foods;}
