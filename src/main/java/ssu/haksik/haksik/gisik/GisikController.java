@@ -17,24 +17,16 @@ public class GisikController {
 
     private final GisikService gisikService;
 
-    private FoodResponse makeResponse(String foods) {
-        Template template = new Template();
-        template.getOutputs().add(new Outputs(new SimpleText(foods)));
-        FoodResponse foodResponse = new FoodResponse("2.0",template);
-        return foodResponse;
-    }
-
     @PostMapping("/week")
     public FoodResponse getThisWeekGisik() {
         String foods = gisikService.getThisWeekGisik();
-        return makeResponse(foods);
+        return new FoodResponse(foods);
     }
 
     @PostMapping("/today")
     public FoodResponse getTodayGisik() {
         String foods = gisikService.getTodayGisik();
-        return makeResponse(foods);
+        return new FoodResponse(foods);
     }
-
 
 }

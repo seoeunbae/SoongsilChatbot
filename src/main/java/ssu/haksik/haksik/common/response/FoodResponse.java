@@ -4,11 +4,14 @@ import lombok.Getter;
 
 @Getter
 public class FoodResponse {
-    public FoodResponse(String version, Template template){
-        this.version = version;
-        this.template = template;
-    }
-
     private String version;
     private Template template;
+
+    public FoodResponse(String foods) {
+        Template template = new Template();
+        template.getOutputs().add(new Outputs(new SimpleText(foods)));
+
+        this.version = "2.0";
+        this.template = template;
+    }
 }
