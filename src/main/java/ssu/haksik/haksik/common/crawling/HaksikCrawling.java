@@ -4,20 +4,13 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import ssu.haksik.haksik.dodam.Dodam;
-import ssu.haksik.haksik.dodam.DodamRepository;
-import ssu.haksik.haksik.facultyLounge.FacultyLounge;
-import ssu.haksik.haksik.facultyLounge.FacultyLoungeRepository;
 
 
 @Component

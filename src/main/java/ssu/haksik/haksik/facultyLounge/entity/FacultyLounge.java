@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.facultyLounge;
+package ssu.haksik.haksik.facultyLounge.entity;
 
 import javax.persistence.*;
 
