@@ -1,16 +1,17 @@
-package ssu.haksik.haksik.facultyLounge;
+package ssu.haksik.haksik.facultyLounge.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssu.haksik.haksik.common.response.FoodResponse;
+import ssu.haksik.haksik.facultyLounge.entity.FacultyLounge;
+import ssu.haksik.haksik.facultyLounge.repository.FacultyLoungeRepository;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
-import java.util.Optional;
 
 import static ssu.haksik.haksik.common.crawling.HaksikCrawling.crawling;
 
@@ -38,7 +39,8 @@ public class FacultyLoungeService {
     }
 
     @Transactional
-    @Scheduled(cron = "0 0 1 * * *")
+//    @Scheduled(cron = "0 0 1 * * *")
+    @Scheduled(cron = "*/50 * * * * *")
     public void saveFacultyFoodMenu() throws IOException {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
         String newFacultyFoodMenu = crawling(url, 0);
