@@ -33,10 +33,10 @@ jobs:
           java-version: 11
 
       - name: Decrypt Services
-          run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase="$GPG_PASSPHRASE" --output services.tar services.tar.gpg
+        run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase="$GPG_PASSPHRASE" --output services.tar services.tar.gpg
 
       - name: Unzip Services
-          run: tar xvf services.tar
+        run: tar xvf services.tar
 
 
       - name: Grant execute permission for gradlew
