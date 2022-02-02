@@ -39,8 +39,7 @@ public class FacultyLoungeService {
     }
 
     @Transactional
-//    @Scheduled(cron = "0 0 1 * * *")
-    @Scheduled(cron = "*/50 * * * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void saveFacultyFoodMenu() throws IOException {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
         String newFacultyFoodMenu = crawling(url, 0);
