@@ -46,7 +46,7 @@ public class DodamService {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
         for (int eatingTime=0; eatingTime<2; eatingTime++) {
             String newDodamFoodMenu = crawling(url, eatingTime);
-            if (newDodamFoodMenu==null){
+            if (newDodamFoodMenu == null){
                 newDodamFoodMenu = "오늘은 쉽니다~";
                 dodamRepository.save(new Dodam(newDodamFoodMenu, eatingTime));
                 break;

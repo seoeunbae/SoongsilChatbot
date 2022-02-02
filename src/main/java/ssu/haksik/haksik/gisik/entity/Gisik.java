@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.gisik;
+package ssu.haksik.haksik.gisik.entity;
 
 import javax.persistence.*;
 

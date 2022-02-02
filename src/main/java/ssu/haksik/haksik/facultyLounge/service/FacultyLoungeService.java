@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static ssu.haksik.haksik.common.crawling.HaksikCrawling.crawling;
 
