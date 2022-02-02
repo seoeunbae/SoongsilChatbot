@@ -4,17 +4,20 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
+import ssu.haksik.haksik.common.EatingTime;
+
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static ssu.haksik.haksik.common.EatingTime.*;
 
 
 @Component
 public class DodamCrawling {
 
-    public String crawling(String url, int eatingTime) throws IOException {
+    public String crawling(String url, EatingTime eatingTime) throws IOException {
 
         LocalDateTime todayDateTime = LocalDateTime.now();
         DayOfWeek today = todayDateTime.getDayOfWeek();
@@ -23,14 +26,14 @@ public class DodamCrawling {
             return "주말은 운영하지 않습니다.";
         }
 
-        int time = eatingTime;
-
         String todayUrl = url.concat(todayDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         Elements lunchAndDinnerMenuListElements = Jsoup.connect(todayUrl).get().getElementsByAttributeValue("class", "menu_list");
 
-        if(lunchAndDinnerMenuListElements.size()==1 && eatingTime==1){
+        if(lunchAndDinnerMenuListElements.size()==1 && eatingTime== DINNER){
             return "식단을 운영하지 않습니다.";
         }
+
+        int time = eatingTime.ordinal();
 
         Element menuListElementDividedByTime = lunchAndDinnerMenuListElements.get(time);// 점심 식단과 저녁식단을 구분
 

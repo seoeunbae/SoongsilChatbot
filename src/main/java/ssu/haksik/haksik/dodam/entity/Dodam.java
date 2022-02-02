@@ -13,11 +13,11 @@ public class Dodam {
     @Column
     private String foods;
     @Column
-    private int eatingTime;
+    private EatingTime eatingTime;
 
     public Dodam() {}
 
-    public Dodam(String foods, int eatingTime){
+    public Dodam(String foods, EatingTime eatingTime){
         this.foods = foods;
         this.eatingTime = eatingTime;
     }
