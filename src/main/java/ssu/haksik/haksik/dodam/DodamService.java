@@ -46,13 +46,19 @@ public class DodamService {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
         for (int eatingTime=0; eatingTime<2; eatingTime++) {
             String newDodamFoodMenu = crawling(url, eatingTime);
-            Dodam dodamFoodMenuByTime = dodamRepository.findByEatingTime(eatingTime);
-            if(dodamFoodMenuByTime == null){
+            if (newDodamFoodMenu==null){
+                newDodamFoodMenu = "오늘은 쉽니다~";
                 dodamRepository.save(new Dodam(newDodamFoodMenu, eatingTime));
-                return;
-            }else{
-                dodamFoodMenuByTime.setFoods(newDodamFoodMenu);
-                dodamRepository.save(dodamFoodMenuByTime);
+                break;
+            } else {
+                Dodam dodamFoodMenuByTime = dodamRepository.findByEatingTime(eatingTime);
+                if (dodamFoodMenuByTime == null) {
+                    dodamRepository.save(new Dodam(newDodamFoodMenu, eatingTime));
+                    return;
+                } else {
+                    dodamFoodMenuByTime.setFoods(newDodamFoodMenu);
+                    dodamRepository.save(dodamFoodMenuByTime);
+                }
             }
         }
     }

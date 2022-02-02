@@ -71,7 +71,7 @@ public class HaksikCrawling {
         }
         String foods = sb.toString();
         return foods;
-        } else return "오늘은 쉽니다~";
+        } else return null;
     }
 
 }
