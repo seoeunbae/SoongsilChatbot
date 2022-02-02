@@ -14,12 +14,12 @@ import java.util.Optional;
 
 @Component
 public class GisikCrawling {
-    public Optional<Elements> crawling() throws IOException {
+    public Elements crawling() throws IOException {
         String URL = "https://ssudorm.ssu.ac.kr:444/SShostel/mall_main.php?viewform=B0001_foodboard_list&board_no=1";
         Document document = Jsoup.connect(URL).get();
         Elements elements = document.getElementsByAttributeValue("class", "boxstyle02");
         Element element = elements.get(0);
         Elements menus = element.select("tr");
-        return Optional.ofNullable(menus);
+        return menus;
     }
 }
