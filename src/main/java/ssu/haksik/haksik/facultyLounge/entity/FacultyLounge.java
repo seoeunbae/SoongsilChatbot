@@ -1,5 +1,6 @@
 package ssu.haksik.haksik.facultyLounge.entity;
 
+import ssu.haksik.haksik.common.EatingTime;
 import javax.persistence.*;
 
 @Entity
@@ -13,11 +14,11 @@ public class FacultyLounge {
     private String foods;
 
     @Column
-    private int eatingTime;
+    private EatingTime eatingTime;
 
     public FacultyLounge(){}
 
-    public FacultyLounge(String foods, int eatingTime) {
+    public FacultyLounge(String foods, EatingTime eatingTime) {
         this.foods = foods;
         this.eatingTime = eatingTime;
     }

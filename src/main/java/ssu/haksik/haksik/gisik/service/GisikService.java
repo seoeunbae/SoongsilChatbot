@@ -9,12 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ssu.haksik.haksik.gisik.crawling.GisikCrawling;
 import ssu.haksik.haksik.gisik.entity.Gisik;
 import ssu.haksik.haksik.gisik.repository.GisikRepository;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +41,6 @@ public class GisikService {
                 }
             }
         }
-
     }
 
     @Transactional(readOnly = true)

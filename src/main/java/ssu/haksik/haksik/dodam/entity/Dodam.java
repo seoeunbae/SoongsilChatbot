@@ -1,6 +1,6 @@
-package ssu.haksik.haksik.dodam;
+package ssu.haksik.haksik.dodam.entity;
 
-import ssu.haksik.haksik.common.crawling.EatingTime;
+import ssu.haksik.haksik.common.EatingTime;
 
 import javax.persistence.*;
 
@@ -10,10 +10,8 @@ public class Dodam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column
     private String foods;
-
     @Column
     private int eatingTime;
 

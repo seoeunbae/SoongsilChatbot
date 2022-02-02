@@ -1,15 +1,12 @@
-package ssu.haksik.haksik.dodam;
+package ssu.haksik.haksik.dodam.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ssu.haksik.haksik.common.crawling.EatingTime;
-import ssu.haksik.haksik.common.crawling.HaksikCrawling;
 import ssu.haksik.haksik.common.response.*;
-
-import java.io.IOException;
+import ssu.haksik.haksik.dodam.service.DodamService;
 
 @RestController
 @RequestMapping("/haksik/dodam")

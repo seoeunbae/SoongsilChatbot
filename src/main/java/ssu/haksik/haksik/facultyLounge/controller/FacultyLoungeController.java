@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ssu.haksik.haksik.common.response.FoodResponse;
 import ssu.haksik.haksik.facultyLounge.service.FacultyLoungeService;
 
-import java.io.IOException;
-
 @RestController
 @RequestMapping("/haksik/faculty")
 @RequiredArgsConstructor
