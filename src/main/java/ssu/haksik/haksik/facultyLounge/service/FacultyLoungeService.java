@@ -22,7 +22,7 @@ public class FacultyLoungeService {
     private final FacultyLoungeCrawling facultyLoungeCrawling;
 
     public FoodResponse getFacultyHaksik(){
-        FacultyLounge facultyLoungeLunch = facultyLoungeRepository.findByEatingTime(1);
+        FacultyLounge facultyLoungeLunch = facultyLoungeRepository.findByEatingTime(LUNCH);
         String facultyLoungeLunchFoods = facultyLoungeLunch.getFoods();
         StringBuilder foods = new StringBuilder();
         String foodsAndDay = foods.append(makeToday()).append("\n\n").append(facultyLoungeLunchFoods).toString();
@@ -39,18 +39,16 @@ public class FacultyLoungeService {
     }
 
     @Transactional
-//    @Scheduled(cron = "0 0 1 * * *")
-    @Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void saveFacultyFoodMenu() throws IOException {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
         String newFacultyFoodMenu = facultyLoungeCrawling.crawling(url);
-        FacultyLounge facultyFoodMenuByTime  = facultyLoungeRepository.findByEatingTime(1);
+        FacultyLounge facultyFoodMenuByTime  = facultyLoungeRepository.findByEatingTime(LUNCH);
         if(facultyFoodMenuByTime == null){
             facultyLoungeRepository.save(new FacultyLounge(newFacultyFoodMenu, LUNCH));
             return;
         }else{
             facultyFoodMenuByTime.setFood(newFacultyFoodMenu);
-            facultyLoungeRepository.save(facultyFoodMenuByTime);
         }
     }
 }
