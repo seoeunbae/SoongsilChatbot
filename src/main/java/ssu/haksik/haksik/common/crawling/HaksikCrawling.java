@@ -31,7 +31,11 @@ public class HaksikCrawling {
         String todayUrl = url.concat(formatDate);
         Document document = Jsoup.connect(todayUrl).get();
         Elements lunchAndDinnerMenuListElements = document.getElementsByAttributeValue("class", "menu_list");
-        Element menuListElementDividedByTime = lunchAndDinnerMenuListElements.get(time); // 점심 식단과 저녁식단을 구분
+
+        if (lunchAndDinnerMenuListElements.get(time).nextElementSibling()!=null){
+            Element menuListElementDividedByTime = lunchAndDinnerMenuListElements.get(time); // 점심 식단과 저녁식단을 구분
+
+
         Elements menuListElements = menuListElementDividedByTime.getElementsByTag("div"); // for문을 몇 번 수행해야 하는지 정하기 위해 총 Element가 몇 가지의 div로 이루어져 있는지 구한다.
         int size = menuListElements.size();
 
@@ -67,5 +71,7 @@ public class HaksikCrawling {
         }
         String foods = sb.toString();
         return foods;
+        } else return "오늘은 쉽니다~";
     }
+
 }
