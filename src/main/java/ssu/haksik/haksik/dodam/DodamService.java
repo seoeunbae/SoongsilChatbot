@@ -39,7 +39,9 @@ public class DodamService {
     }
 
     @Transactional
-    @Scheduled(cron = "0 0 1 * * *")
+//    @Scheduled(cron = "0 0 1 * * *")
+//    @Scheduled(cron = "*/50 * * * * *")
+    @Scheduled(cron = "0 */2 * * * *")
     public void saveDodamFoodMenu() throws IOException {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=2&sdt=";
         for (int eatingTime=0; eatingTime<2; eatingTime++) {

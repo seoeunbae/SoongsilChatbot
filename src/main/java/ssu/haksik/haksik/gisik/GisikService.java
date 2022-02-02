@@ -19,7 +19,8 @@ public class GisikService {
     private final GisikCrawling gisikCrawling;
 
     @Transactional
-    @Scheduled(cron = "0 0 1 * * 1")
+//    @Scheduled(cron = "0 0 1 * * 1")
+    @Scheduled(cron = "0 */2 * * * *")
     void saveGisik() throws IOException {
         Elements tr= this.gisikCrawling.crawling();
         for (int day=1;day<8;day++) {

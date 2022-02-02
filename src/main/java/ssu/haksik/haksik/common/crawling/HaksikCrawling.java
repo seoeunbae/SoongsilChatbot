@@ -32,7 +32,7 @@ public class HaksikCrawling {
         Document document = Jsoup.connect(todayUrl).get();
         Elements lunchAndDinnerMenuListElements = document.getElementsByAttributeValue("class", "menu_list");
 
-        if (lunchAndDinnerMenuListElements.get(time).nextElementSibling()!=null){
+        if (lunchAndDinnerMenuListElements.get(time).nextElementSibling() != null){
             Element menuListElementDividedByTime = lunchAndDinnerMenuListElements.get(time); // 점심 식단과 저녁식단을 구분
 
 
