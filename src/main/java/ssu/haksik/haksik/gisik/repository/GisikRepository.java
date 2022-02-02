@@ -13,11 +13,4 @@ import java.util.Optional;
 @Repository
 public interface GisikRepository extends JpaRepository<Gisik,Long> {
     Gisik findByEatingTimeAndDay(int eatingTime, int day);
-
-//    @Transactional
-//    @Modifying
-//    @Query("update Gisik g set g.foods = :foods where g.eatingTime=:time and g.day = :day")
-//    void updateGisikFoods(@Param("foods") String foods,@Param("day") int day, @Param("time") int time);
-
-
 }
