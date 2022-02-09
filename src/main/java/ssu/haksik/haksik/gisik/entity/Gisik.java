@@ -1,6 +1,9 @@
 package ssu.haksik.haksik.gisik.entity;
 
+import ssu.haksik.haksik.gisik.enums.GisikEatingTime;
+
 import javax.persistence.*;
+import java.time.DayOfWeek;
 
 @Entity
 public class Gisik {
@@ -10,11 +13,13 @@ public class Gisik {
     @Column
     private String foods;
     @Column
-    private int day;
+    @Enumerated(EnumType.STRING)
+    private DayOfWeek day;
     @Column
-    private int eatingTime;
+    @Enumerated(EnumType.STRING)
+    private GisikEatingTime eatingTime;
 
-    public Gisik(String foods, int day, int eatingTime){
+    public Gisik(String foods, GisikEatingTime eatingTime, DayOfWeek day){
         this.foods = foods;
         this.day = day;
         this.eatingTime = eatingTime;
@@ -26,5 +31,5 @@ public class Gisik {
         return foods;
     }
 
-    public void setFoods(String foods) { this.foods = foods; }
+    public void changeFoods(String foods) { this.foods = foods; }
 }

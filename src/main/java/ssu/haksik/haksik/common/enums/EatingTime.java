@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.common;
+package ssu.haksik.haksik.common.enums;
 
 public enum EatingTime {
     LUNCH, DINNER

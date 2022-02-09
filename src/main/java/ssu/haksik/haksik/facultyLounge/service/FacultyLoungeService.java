@@ -10,9 +10,10 @@ import ssu.haksik.haksik.facultyLounge.entity.FacultyLounge;
 import ssu.haksik.haksik.facultyLounge.repository.FacultyLoungeRepository;
 import java.io.IOException;
 import java.time.LocalDate;
+
 import static java.time.format.TextStyle.*;
 import static java.util.Locale.*;
-import static ssu.haksik.haksik.common.EatingTime.*;
+import static ssu.haksik.haksik.common.enums.EatingTime.*;
 
 @Service
 @RequiredArgsConstructor
@@ -21,16 +22,14 @@ public class FacultyLoungeService {
     private final FacultyLoungeRepository facultyLoungeRepository;
     private final FacultyLoungeCrawling facultyLoungeCrawling;
 
-    public FoodResponse getFacultyHaksik(){
-        FacultyLounge facultyLoungeLunch = facultyLoungeRepository.findByEatingTime(LUNCH);
-        String facultyLoungeLunchFoods = facultyLoungeLunch.getFoods();
-        StringBuilder foods = new StringBuilder();
-        String foodsAndDay = foods.append(makeToday()).append("\n\n").append(facultyLoungeLunchFoods).toString();
+    @Transactional(readOnly = true)
+    public FoodResponse getFacultyLoungeFood(){
+        String facultyLunchFoods = facultyLoungeRepository.findByEatingTime(LUNCH).getFoods();
 
-        return new FoodResponse(foodsAndDay);
+        return new FoodResponse(makeTodayDateFormat()+"\n\n"+facultyLunchFoods);
     }
 
-    public String makeToday(){
+    private String makeTodayDateFormat(){
         LocalDate now = LocalDate.now();
         String yyyymmdd = now.toString();
         String day = now.getDayOfWeek().getDisplayName(SHORT, KOREAN);
@@ -39,16 +38,16 @@ public class FacultyLoungeService {
     }
 
     @Transactional
-    @Scheduled(cron = "0 0 1 * * *")
+    @Scheduled(cron = "0 0 1 * * 1")
     public void saveFacultyFoodMenu() throws IOException {
         String url = "http://m.soongguri.com/m_req/m_menu.php?rcd=7&sdt=";
-        String newFacultyFoodMenu = facultyLoungeCrawling.crawling(url);
-        FacultyLounge facultyFoodMenuByTime  = facultyLoungeRepository.findByEatingTime(LUNCH);
-        if(facultyFoodMenuByTime == null){
+        String newFacultyFoodMenu = facultyLoungeCrawling.makeTodayFood(url);
+        FacultyLounge existFacultyLoungeFood  = facultyLoungeRepository.findByEatingTime(LUNCH);
+        if(existFacultyLoungeFood == null){
             facultyLoungeRepository.save(new FacultyLounge(newFacultyFoodMenu, LUNCH));
             return;
         }else{
-            facultyFoodMenuByTime.setFood(newFacultyFoodMenu);
+            existFacultyLoungeFood.changeFood(newFacultyFoodMenu);
         }
     }
 }
