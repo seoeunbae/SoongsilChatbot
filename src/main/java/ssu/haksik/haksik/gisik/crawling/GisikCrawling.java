@@ -12,10 +12,6 @@ import java.io.IOException;
 public class GisikCrawling {
     public Elements crawling() throws IOException {
         String URL = "https://ssudorm.ssu.ac.kr:444/SShostel/mall_main.php?viewform=B0001_foodboard_list&board_no=1";
-        Document document = Jsoup.connect(URL).get();
-        Elements elements = document.getElementsByAttributeValue("class", "boxstyle02");
-        Element element = elements.get(0);
-        Elements menus = element.select("tr");
-        return menus;
+        return Jsoup.connect(URL).get().getElementsByAttributeValue("class", "boxstyle02").get(0).select("tr");
     }
 }

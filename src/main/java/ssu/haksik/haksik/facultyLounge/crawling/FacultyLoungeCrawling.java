@@ -6,65 +6,79 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
 public class FacultyLoungeCrawling {
 
-    public String crawling(String url) throws IOException {
+    public String makeTodayFood(String url) throws IOException {
 
-        LocalDateTime todayDateTime = LocalDateTime.now();
-        DayOfWeek today = todayDateTime.getDayOfWeek();
-        String todayString = today.toString();
-        if(todayString.equals("SUNDAY") || todayString.equals("SATURDAY")){
-            return "주말은 운영하지 않습니다.";
-        }
+        if(isWeekend()){return "주말은 운영하지 않습니다.";}
 
-        String todayUrl = url.concat(todayDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
-        Elements lunchAndDinnerMenuListElements = Jsoup.connect(todayUrl).get().getElementsByAttributeValue("class", "menu_list");
+        Elements menuListElements = crawling(url);
 
-        Element menuListElementDividedByTime = lunchAndDinnerMenuListElements.get(0);// 점심 식단과 저녁식단을 구분
+        Elements menuListElementsByEatingTime = menuListElements.get(0).getElementsByTag("div"); // 점심 식단과 저녁식단을 구분한 후 div를 기준으로 elements를 생성
+        int menuListSize = menuListElementsByEatingTime.size();
 
-        Elements menuListElements = menuListElementDividedByTime.getElementsByTag("div"); // for문을 몇 번 수행해야 하는지 정하기 위해 총 Element가 몇 가지의 div로 이루어져 있는지 구한다.
-        int size = menuListElements.size();
-
-        String foods = makeFoodList(size, menuListElements);
+        String foods = makeFoodList(menuListSize, menuListElementsByEatingTime);
         return foods;
     }
 
+    public Elements crawling(String url) throws IOException {
 
-    private String makeFoodList(int size, Elements menuListElements){
+        String todayUrl = url.concat(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        Elements menuListElements = Jsoup.connect(todayUrl).get().getElementsByAttributeValue("class", "menu_list");
 
-        boolean crawlingPart = false;
-        StringBuilder sb = new StringBuilder();
+        return menuListElements;
+    }
 
-        for (int i = 0; i < size; i++){
+    private Boolean isWeekend(){
+        String todayString = LocalDateTime.now().getDayOfWeek().toString();
+        if(todayString.equals("SUNDAY") || todayString.equals("SATURDAY")){
+            return true;
+        }
+        return false;
+    }
+
+    private String makeFoodList(int menuListSize, Elements menuListElements){
+
+        boolean isAboutFood = false; // 음식과 관련된 element만 stringbuilder에 추가하기 위해 사용
+        StringBuilder foodList = new StringBuilder();
+
+        for (int i = 0; i < menuListSize; i++){
             Element menuListElement = menuListElements.get(i);
 
             if(menuListElement.getElementsContainingText("*").hasText() || menuListElement.getElementsContainingText("6.0").hasText()){
-                crawlingPart = true;
+                isAboutFood = true;
             }
 
-            if(crawlingPart){
+            if(isAboutFood){
                 if (menuListElement.getElementsContainingText("알러지").hasText()) {
                     break;
                 }
 
-                if (menuListElement.hasText()) {
-                    String foods = menuListElement.text();
-                    if(foods.charAt(1)>=65 && foods.charAt(1)<=122){
-                        continue;
-                    }
-                    if(foods.contains("-6.0") || foods.contains(" - 6.0")){
-                        foods.replace("-6.0","")
-                                .replace(" - 6.0","");
-                    }
-                    sb.append(foods+"\n");
+                String food = extractFoodFromElements(menuListElement);
+                if(!food.isEmpty()){
+                    foodList.append(food+"\n");
                 }
             }
         }
-        return sb.toString();
+        return foodList.toString();
+    }
+
+    private String extractFoodFromElements(Element menuListElement){
+        String food = menuListElement.text();
+
+        if(food.isEmpty() ||(food.charAt(1)>=65 && food.charAt(1)<=122)){
+            return "";
+        }
+
+        if(food.contains("-6.0") || food.contains(" - 6.0")){
+            food = food.replace("-6.0","")
+                    .replace(" - 6.0","");
+        }
+
+        return food;
     }
 }

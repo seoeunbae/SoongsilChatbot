@@ -14,10 +14,9 @@ public class FacultyLoungeController {
 
     private final FacultyLoungeService facultyLoungeService;
 
-    @PostMapping()
-    public FoodResponse getFacultyHaksik(){
-        FoodResponse facultyHaksik = facultyLoungeService.getFacultyHaksik();
-        return facultyHaksik;
+    @PostMapping()// 카카오 API에서 post 방식만 지원함
+    public FoodResponse getFacultyLoungeFood(){
+        return facultyLoungeService.getFacultyLoungeFood();
     }
 
 }

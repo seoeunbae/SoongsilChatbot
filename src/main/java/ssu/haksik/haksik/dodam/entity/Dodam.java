@@ -1,6 +1,6 @@
 package ssu.haksik.haksik.dodam.entity;
 
-import ssu.haksik.haksik.common.EatingTime;
+import ssu.haksik.haksik.common.enums.EatingTime;
 
 import javax.persistence.*;
 
@@ -13,6 +13,7 @@ public class Dodam {
     @Column
     private String foods;
     @Column
+    @Enumerated(EnumType.STRING)
     private EatingTime eatingTime;
 
     public Dodam() {}
@@ -26,6 +27,6 @@ public class Dodam {
         return foods;
     }
 
-    public void setFoods(String foods) { this.foods = foods; }
+    public void changeFoods(String foods) { this.foods = foods; }
 
 }
