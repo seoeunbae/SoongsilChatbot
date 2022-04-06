@@ -1,0 +1,8 @@
+filebeat.prospectors:
+  - input_type: log
+
+    paths:
+      - /opt/tomcat/logs/catalina.out
+
+output.logstash:
+  hosts: ["127.0.0.1:5044"]
