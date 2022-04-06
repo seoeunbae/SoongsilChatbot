@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    volumes:
+      - ./nginx/log:/var/log/nginx #./nginx/log밑에 남길것 디폴트 포매팅에 디폴트경로로 남기고, 그것을 볼륨마운트시킴
+    ports:
+      - "8080:80"
+  # 여기까지 엔진엑스를 구동
+  shipper:
+    image: docker.elastic.co/beats/filebeat:7.16.2
+    container_name: shipper
+    user: root
+    volumes:
+      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml #파일비트의 컨피그파일도 같이 마운트시킨다.
+      - ./nginx/log:/var/log/nginx #해당퍼다나를 로그들을 마운트 /nignx/log를 ->/var/log/ngnix의 하위에 저장된다.
+
+#여기까지 엔진엑에 대한 로그를 퍼다나르는 쉬퍼=파일비트 를 같이 구동해준다.
+networks:
+  default:
+    external:
+      name: haksik

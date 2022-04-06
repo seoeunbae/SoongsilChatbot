@@ -1,0 +1,25 @@
+metricbeat.config.modules:
+  enabled: true
+  reload.enabled: false
+  reload.period: 10s
+  path: ${path.config}/modules.d/*.yml
+
+setup.dashboards.enabled: true
+setup.kibana.host: kibana:5601
+
+output.elasticsearch:
+  hosts: ['esm01:9200']
+  username: "metricbeat_writer"
+  password: "YOUR_PASSWORD"
+
+metricbeat.modules:
+  - module: elasticsearch
+    xpack.enabled: true
+#    xpack.monitoring.enabled: true
+#    xpack.monitoring.collection.enabled: true
+    xpack.monitoring.exporters.my_local:
+      type: local
+      use_ingest: false
+    period: 10s
+    hosts: [ 'http://esm01:9200', 'http://esd01:9200', 'http://esd02:9200' ]
+

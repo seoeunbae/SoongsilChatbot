@@ -1,0 +1,107 @@
+version: '3.8'
+services:
+  haksikesm01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    #    mem_limit: 8000M
+    #    mem_reservation: 5000M
+    container_name: esm01
+    ports:
+      - "9200:9200"
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      ES_SETTING_BOOTSTRAP_MEMORY__LOCK: "true"
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m -Xlog:disable"
+      node.name: esm01
+      node.roles: master
+      network.host: 0.0.0.0
+      cluster.name: es-cluster
+      cluster.initial_master_nodes: esm01
+      discovery.seed_hosts: esm01, esd01, esd02
+      xpack.security.enabled: "false"
+      xpack.monitoring.collection.enabled: "false" #추가된 부분, 각 노드에 추가함
+      http.cors.allow-origin: "*"
+      http.cors.enabled: true
+      indices.fielddata.cache.size: 70%
+
+
+  haksikesd01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    container_name: esd01
+    volumes:
+      - data02:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      ES_SETTING_BOOTSTRAP_MEMORY__LOCK: "true"
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m -Xlog:disable"
+      node.name: esd01
+      node.roles: data, ingest
+      cluster.name: es-cluster
+      cluster.initial_master_nodes: esm01
+      discovery.seed_hosts: esm01, esd01, esd02
+      xpack.security.enabled: "false"
+      xpack.monitoring.collection.enabled: "false"
+      indices.fielddata.cache.size: 70%
+        #elasticsearch 자체적으로 swapping  금지
+        #하나의 메모리가 스왑아웃되면, 나중에 해당메모리가 다시 스왑인 해야해서 성능적 이슈생깁니다.
+        #elasticsearch의 자원을 외부에서도 요청할 수 있게 할 수 있는 세팅입니다.
+      http.cors.enabled: true
+      http.cors.allow-origin: "*"
+
+
+  haksikesd02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    container_name: esd02
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      ES_SETTING_BOOTSTRAP_MEMORY__LOCK: "true"
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m -Xlog:disable"
+      node.name: esd03
+      node.roles: data
+      cluster.name: es-cluster
+      cluster.initial_master_nodes: esm01
+      discovery.seed_hosts: esm01, esd01, esd02
+      xpack.security.enabled: "false"
+      xpack.monitoring.collection.enabled: "false"
+
+      indices.fielddata.cache.size: 70%
+
+      #elasticsearch 자체적으로 swapping  금지
+      #하나의 메모리가 스왑아웃되면, 나중에 해당메모리가 다시 스왑인 해야해서 성능적 이슈생깁니다.
+
+      #elasticsearch의 자원을 외부에서도 요청할 수 있게 할 수 있는 세팅입니다.
+      http.cors.enabled: true
+      http.cors.allow-origin: "*"
+
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.16.2
+    container_name: metricbeat
+    environment:
+      ELASTICSEARCH_HOSTS: http://esm01:9200
+    volumes:
+      - ./config/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
+
+networks:
+  default:
+    external:
+      name: haksik

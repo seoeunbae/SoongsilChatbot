@@ -1,8 +1,58 @@
-filebeat.prospectors:
-  - input_type: log
+filebeat.config.modules:
+  enabled: true
+  reload.enabled: false
+  reload.period: 10s
+  path: ${path.config}/modules.d/*.yml
 
+#위에는 파일비트의 모듈 패트들을 잡아주는것
+filebeat.inputs:
+  - type: filestream #filestream타입으로
     paths:
-      - /opt/tomcat/logs/catalina.out
+      - /var/log/nginx/*.log #*.log 해당로그파일을 읽어서 던지겠다.
+      # 위에나오는 경로는 docker-compose 에 마운트시킨경로와 연결된다.
+    fields:
+      nginx: true
 
-output.logstash:
-  hosts: ["127.0.0.1:5044"]
+# 위에는핵심부분
+filebeat.modules:
+  - module: nginx #엔진엑스 모듈을 활용할것이다.
+    access:
+      enabled: true
+      var.paths:
+        - /var/log/nginx/access.log #accesslog는 여기 패트애 ㅇ있다..
+    error:
+      enabled: true
+      var.paths:
+        - /var/log/nginx/error.log #에러로그는 여기에 있다.
+    ingress_container: #쿠버네티스에서 엔진엑스 인그레스 컨트럴러에 대한 설정 : 우리는 사용안함.
+      enabled: false
+#주석처리한 이유: 이제 로그스태쉬가 할 역할이기 때문.
+
+#setup:
+#  kibana:
+#    host: "http://kibana:5601"
+#  dashboards:
+#    enabled: true
+
+#  설정된 패트에 있는 쌓인 로그를 파일스트림으로 읽어서,output으로 elasticsearch에 보내겠다.(master주소인 esm01:9200 던지겠다.)
+output:
+  elasticsearch:
+    enabled: true
+    hosts: ["esm01:9200"] # elasticsearch로 바로 전달 false
+    username: "metricbeat_writer"
+    password: "YOUR_PASSWORD"
+  logstash:
+    enabled: false
+    hosts: ["127.0.0.1:5044"] #로그스태쉬로 전달
+    username: "logstash_system"
+    password: "LOGSTASH_SYSTEM_PASSWORD"
+
+#xpack.monitoring.enabled: true
+
+
+monitoring:
+  enabled: false
+  elasticsearch:
+    hosts: ['esm01:9200']
+    username: "metricbeat_writer"
+    password: "YOUR_PASSWORD"
