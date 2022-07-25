@@ -1,5 +1,6 @@
 package ssu.haksik.haksik.gisik.controller;
 
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +28,10 @@ public class GisikController {
     public FoodResponse getTodayGisik() {
         String foods = gisikService.getGisikofDay(LocalDateTime.now().getDayOfWeek());
         return new FoodResponse(foods);
+    }
+
+    @PostMapping("/save")
+    public void saveGisik() throws IOException {
+        gisikService.saveGisik();
     }
 }

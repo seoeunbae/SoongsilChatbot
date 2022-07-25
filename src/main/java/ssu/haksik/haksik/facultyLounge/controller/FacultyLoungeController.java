@@ -1,5 +1,6 @@
 package ssu.haksik.haksik.facultyLounge.controller;
 
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,4 +20,8 @@ public class FacultyLoungeController {
         return facultyLoungeService.getFacultyLoungeFood();
     }
 
+    @PostMapping("/save")// 카카오 API에서 post 방식만 지원함
+    public void saveFacultyLoungeFood() throws IOException {
+        facultyLoungeService.saveFacultyFoodMenu();
+    }
 }
