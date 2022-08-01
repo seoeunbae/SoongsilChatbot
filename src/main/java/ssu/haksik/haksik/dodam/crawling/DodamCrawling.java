@@ -56,7 +56,9 @@ public class DodamCrawling {
         for (int i = 0; i < menuListSize; i++){
             Element menuListElement = menuListElements.get(i);
 
-            if(menuListElement.getElementsContainingText("*").hasText() || menuListElement.getElementsContainingText("5.0").hasText()){
+            if(menuListElement.getElementsContainingText("5.0").hasText()){
+                Element beforeLine = menuListElements.get(i - 1);
+                foodList.append(extractFoodFromElements(beforeLine));
                 isAboutFood = true;
             }
 
