@@ -6,9 +6,11 @@ import ssu.haksik.haksik.gisik.entity.Gisik;
 import ssu.haksik.haksik.gisik.enums.GisikEatingTime;
 
 import java.time.DayOfWeek;
+import java.util.List;
 
 
 @Repository
 public interface GisikRepository extends JpaRepository<Gisik,Long> {
-    Gisik findByEatingTimeAndDay(GisikEatingTime eatingTime, DayOfWeek day);
+    Gisik findByEatingTimeAndDate(GisikEatingTime eatingTime, String date);
+    List<Gisik> findAll();
 }

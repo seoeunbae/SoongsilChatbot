@@ -1,11 +1,13 @@
 package ssu.haksik.haksik.gisik.entity;
 
+import lombok.Getter;
 import ssu.haksik.haksik.gisik.enums.GisikEatingTime;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
 
 @Entity
+@Getter
 public class Gisik {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,16 +15,19 @@ public class Gisik {
     @Column
     private String foods;
     @Column
-    @Enumerated(EnumType.STRING)
-    private DayOfWeek day;
+    private String date;
+    @Column
+    private String dayOfWeek;
+
     @Column
     @Enumerated(EnumType.STRING)
     private GisikEatingTime eatingTime;
 
-    public Gisik(String foods, GisikEatingTime eatingTime, DayOfWeek day){
+    public Gisik(String foods, GisikEatingTime eatingTime, String date, String dayOfWeek){
         this.foods = foods;
-        this.day = day;
+        this.date = date;
         this.eatingTime = eatingTime;
+        this.dayOfWeek = dayOfWeek;
     }
 
     public Gisik() { }
