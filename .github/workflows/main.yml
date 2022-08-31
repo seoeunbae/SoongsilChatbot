@@ -31,20 +31,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 11
-
-      - name: Get branch name
-        id: branch-name
-        uses: tj-actions/branch-names@v6
-        
-      - name: Running on a pull request branch.
-        run: |
-          echo "Running on pr: ${{ steps.branch-name.outputs.head_ref_branch }}"
       
       - name: branch name check
         run: echo ${{ github.event.pull_request.head.ref }}
         
       - name: branch name check2
-        run: echo ${GITHUB_REF##*/}
+        run: echo ${GITHUB_REF}
         
       - name: branch name check3
         run: contains(${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}, 'Feat')
