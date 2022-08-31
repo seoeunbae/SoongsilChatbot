@@ -33,7 +33,7 @@ jobs:
           java-version: 11
 
       - name: branch name check
-        run: echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
+        run: echo ${GITHUB_REF}
         
       - name: branch name check2
         run: contains(${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}, 'Feat')
