@@ -40,8 +40,8 @@ jobs:
         run : echo "first"
         
       - name: branch name check3
-        if: ${{ github.event_name == 'push' }}
-        run : echo "true"
+        if: ${{ github.event_name != 'push' }}
+        run : echo "false"
         
       - name: Decrypt Services
         run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase=${{ secrets.GPG_PASSPHRASE }} --output services.tar services.tar.gpg
