@@ -36,7 +36,7 @@ jobs:
         run: echo ${{ github.event.pull_request.head.ref }}
         
       - name: branch name check3
-        if: contains(github.event.pull_request.head.ref, 'feat') == false && contains(github.event.pull_request.head.ref, 'hotfix') == false
+        if: ${{ github.event_name != 'push' }} && (contains(github.event.pull_request.head.ref, 'feat') == false && contains(github.event.pull_request.head.ref, 'hotfix') == false)
         run : exit 1
         
       - name: Decrypt Services
