@@ -33,10 +33,10 @@ jobs:
           java-version: 11
 
       - name: branch name check
-        run: echo ${{ github.head_ref }}
+        run: echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
         
       - name: branch name check2
-        run: contains(${{ github.head_ref }}, 'Feat')
+        run: contains(${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}, 'Feat')
 
       - name: Decrypt Services
         run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase=${{ secrets.GPG_PASSPHRASE }} --output services.tar services.tar.gpg
