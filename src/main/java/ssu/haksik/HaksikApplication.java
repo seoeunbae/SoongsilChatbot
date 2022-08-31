@@ -18,4 +18,5 @@ public class HaksikApplication {
 		SpringApplication.run(HaksikApplication.class, args);}
 
 	// blank for test
+	// blank for test
 }
