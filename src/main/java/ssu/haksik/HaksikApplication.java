@@ -21,4 +21,6 @@ public class HaksikApplication {
 	// blank for test
 	// blank for test
 	// blank for test
+	// blank for test
+	// blank for test
 }
