@@ -33,10 +33,10 @@ jobs:
           java-version: 11
       
       - name: branch name check
-        run: echo ${{ github.event.pull_request.head.ref }}
+        run: echo ${{ contains(github.event.pull_request.head.ref, 'feat') || contains(github.event.pull_request.head.ref, 'hotfix') }}
         
       - name: branch name check3
-        if: contains(github.event.pull_request.head.ref, 'feat' || 'hotfix')
+        if: contains(github.event.pull_request.head.ref, 'feat') || contains(github.event.pull_request.head.ref, 'hotfix')
         run : exit 1
         
       - name: Decrypt Services
