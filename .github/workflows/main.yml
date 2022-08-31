@@ -39,7 +39,7 @@ jobs:
         run: echo ${GITHUB_REF}
         
       - name: branch name check3
-        run: contains(${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}, 'Feat')
+        run: contains(${{ github.event.pull_request.head.ref }}, 'feat')
 
       - name: Decrypt Services
         run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase=${{ secrets.GPG_PASSPHRASE }} --output services.tar services.tar.gpg
