@@ -36,6 +36,9 @@ jobs:
         run: echo ${GITHUB_REF}
         
       - name: branch name check2
+        run: echo ${{ github.head_ref }}
+        
+      - name: branch name check3
         run: contains(${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}, 'Feat')
 
       - name: Decrypt Services
