@@ -31,17 +31,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 11
-      
+        
       - name: branch name check
-        run: echo ${{ github.event.pull_request.head.ref }}
-        
-      - name: branch name check3
-        if: github.event_name != 'push' && contains(github.event.pull_request.head.ref, 'feat') == false && contains(github.event.pull_request.head.ref, 'hotfix') == false
-        run : echo "first"
-        
-      - name: branch name check3
-        if: ${{ github.event_name != 'push' }}
-        run : echo "false"
+        if: (github.event_name != 'push') && (contains(github.event.pull_request.head.ref, 'feat') == false) && (contains(github.event.pull_request.head.ref, 'hotfix') == false)
+        run : exit 1
         
       - name: Decrypt Services
         run: gpg --quiet --batch --yes --always-trust --decrypt --passphrase=${{ secrets.GPG_PASSPHRASE }} --output services.tar services.tar.gpg
