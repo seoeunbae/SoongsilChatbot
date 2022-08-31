@@ -32,6 +32,14 @@ jobs:
           distribution: 'temurin'
           java-version: 11
 
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+        
+      - name: Running on a pull request branch.
+        run: |
+          echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"
+      
       - name: branch name check
         run: echo ${{ github.event.pull_request.head.ref }}
         
