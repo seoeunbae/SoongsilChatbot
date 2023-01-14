@@ -11,7 +11,7 @@
 
 &nbsp;
 
-<img src="https://user-images.githubusercontent.com/71380240/212453536-d6f5b6e2-5587-4c1a-a3d6-dab2050f45c1.gif"  width="300" height="600" />
+<img src="https://user-images.githubusercontent.com/71380240/212456685-35169b78-6010-497f-a2b5-73532d446cc5.gif"  width="300" height="600" />
 
 ## 기술스택
 
