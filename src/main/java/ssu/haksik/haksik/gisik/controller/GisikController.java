@@ -20,19 +20,19 @@ public class GisikController {
 
     private final GisikService gisikService;
 
-    @PostMapping("/week") // 카카오 API에서 post 방식만 지원함
+    @PostMapping("/weekMenu") // 카카오 API에서 post 방식만 지원함
     public FoodResponse getThisWeekGisik() {
         String foods = gisikService.getThisWeekGisik();
         return new FoodResponse(foods);
     }
 
-    @PostMapping("/today") // 카카오 API에서 post 방식만 지원함
+    @PostMapping("/todayMenu") // 카카오 API에서 post 방식만 지원함
     public FoodResponse getTodayGisik() {
         String foods = gisikService.getGisikofDay(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return new FoodResponse(foods);
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public void saveGisik() throws IOException {
         gisikService.saveGisik();
     }
