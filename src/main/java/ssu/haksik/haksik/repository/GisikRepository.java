@@ -1,11 +1,10 @@
-package ssu.haksik.haksik.gisik.repository;
+package ssu.haksik.haksik.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ssu.haksik.haksik.gisik.entity.Gisik;
-import ssu.haksik.haksik.gisik.enums.GisikEatingTime;
+import ssu.haksik.haksik.entity.Gisik;
+import ssu.haksik.haksik.common.enums.GisikEatingTime;
 
-import java.time.DayOfWeek;
 import java.util.List;
 
 

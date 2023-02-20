@@ -1,14 +1,14 @@
-package ssu.haksik.haksik.gisik.service;
+package ssu.haksik.haksik.service;
 
 import lombok.RequiredArgsConstructor;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ssu.haksik.haksik.gisik.crawling.GisikCrawling;
-import ssu.haksik.haksik.gisik.entity.Gisik;
-import ssu.haksik.haksik.gisik.enums.GisikEatingTime;
-import ssu.haksik.haksik.gisik.repository.GisikRepository;
+import ssu.haksik.haksik.common.crawling.GisikCrawling;
+import ssu.haksik.haksik.entity.Gisik;
+import ssu.haksik.haksik.common.enums.GisikEatingTime;
+import ssu.haksik.haksik.repository.GisikRepository;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.util.List;

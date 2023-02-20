@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.facultyLounge.controller;
+package ssu.haksik.haksik.controller;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ssu.haksik.haksik.common.response.FoodResponse;
-import ssu.haksik.haksik.facultyLounge.service.FacultyLoungeService;
+import ssu.haksik.haksik.service.FacultyLoungeService;
 
 @RestController
 @RequestMapping("/haksik")

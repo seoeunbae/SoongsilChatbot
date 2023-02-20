@@ -1,13 +1,13 @@
-package ssu.haksik.haksik.facultyLounge.service;
+package ssu.haksik.haksik.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssu.haksik.haksik.common.response.FoodResponse;
-import ssu.haksik.haksik.facultyLounge.crawling.FacultyLoungeCrawling;
-import ssu.haksik.haksik.facultyLounge.entity.FacultyLounge;
-import ssu.haksik.haksik.facultyLounge.repository.FacultyLoungeRepository;
+import ssu.haksik.haksik.common.crawling.FacultyLoungeCrawling;
+import ssu.haksik.haksik.entity.FacultyLounge;
+import ssu.haksik.haksik.repository.FacultyLoungeRepository;
 import java.io.IOException;
 import java.time.LocalDate;
 

@@ -1,9 +1,9 @@
-package ssu.haksik.haksik.common;
+package ssu.haksik.haksik.common.exception;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ssu.haksik.haksik.common.exception.DodamDinnerNotExistException;
 import ssu.haksik.haksik.common.response.FoodResponse;
-import ssu.haksik.haksik.dodam.exception.DodamDinnerNotExistException;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {

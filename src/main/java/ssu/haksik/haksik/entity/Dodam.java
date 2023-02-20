@@ -1,10 +1,11 @@
-package ssu.haksik.haksik.facultyLounge.entity;
+package ssu.haksik.haksik.entity;
 
 import ssu.haksik.haksik.common.enums.EatingTime;
+
 import javax.persistence.*;
 
 @Entity
-public class FacultyLounge {
+public class Dodam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,14 +16,17 @@ public class FacultyLounge {
     @Enumerated(EnumType.STRING)
     private EatingTime eatingTime;
 
-    public FacultyLounge(){}
+    public Dodam() {}
 
-    public FacultyLounge(String foods, EatingTime eatingTime) {
+    public Dodam(String foods, EatingTime eatingTime){
         this.foods = foods;
         this.eatingTime = eatingTime;
     }
 
-    public String getFoods(){ return foods; }
+    public String getFoods(){
+        return foods;
+    }
 
-    public void changeFood(String foods){ this.foods = foods; }
+    public void changeFoods(String foods) { this.foods = foods; }
+
 }

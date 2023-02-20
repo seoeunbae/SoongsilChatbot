@@ -1,11 +1,11 @@
-package ssu.haksik.haksik.dodam.controller;
+package ssu.haksik.haksik.controller;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ssu.haksik.haksik.common.enums.EatingTime;
 import ssu.haksik.haksik.common.response.*;
-import ssu.haksik.haksik.dodam.service.DodamService;
+import ssu.haksik.haksik.service.DodamService;
 
 @RestController
 @RequestMapping("/haksik/dodam")

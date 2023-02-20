@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.dodam.exception;
+package ssu.haksik.haksik.common.exception;
 
 public class DodamDinnerNotExistException extends RuntimeException{
     public DodamDinnerNotExistException(String message){

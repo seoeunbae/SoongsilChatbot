@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.dodam.crawling;
+package ssu.haksik.haksik.common.crawling;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 import ssu.haksik.haksik.common.enums.EatingTime;
-import ssu.haksik.haksik.dodam.exception.DodamDinnerNotExistException;
+import ssu.haksik.haksik.common.exception.DodamDinnerNotExistException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 

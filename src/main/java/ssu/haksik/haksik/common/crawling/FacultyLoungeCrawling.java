@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.facultyLounge.crawling;
+package ssu.haksik.haksik.common.crawling;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;

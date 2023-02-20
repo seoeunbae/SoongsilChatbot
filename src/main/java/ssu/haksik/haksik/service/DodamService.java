@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.dodam.service;
+package ssu.haksik.haksik.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssu.haksik.haksik.common.enums.EatingTime;
 import ssu.haksik.haksik.common.response.FoodResponse;
-import ssu.haksik.haksik.dodam.crawling.DodamCrawling;
-import ssu.haksik.haksik.dodam.entity.Dodam;
-import ssu.haksik.haksik.dodam.repository.DodamRepository;
+import ssu.haksik.haksik.common.crawling.DodamCrawling;
+import ssu.haksik.haksik.entity.Dodam;
+import ssu.haksik.haksik.repository.DodamRepository;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;

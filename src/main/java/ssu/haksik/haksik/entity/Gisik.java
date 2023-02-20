@@ -1,10 +1,9 @@
-package ssu.haksik.haksik.gisik.entity;
+package ssu.haksik.haksik.entity;
 
 import lombok.Getter;
-import ssu.haksik.haksik.gisik.enums.GisikEatingTime;
+import ssu.haksik.haksik.common.enums.GisikEatingTime;
 
 import javax.persistence.*;
-import java.time.DayOfWeek;
 
 @Entity
 @Getter

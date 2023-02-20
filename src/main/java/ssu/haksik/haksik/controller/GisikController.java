@@ -1,4 +1,4 @@
-package ssu.haksik.haksik.gisik.controller;
+package ssu.haksik.haksik.controller;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ssu.haksik.haksik.common.response.FoodResponse;
-import ssu.haksik.haksik.gisik.entity.Gisik;
-import ssu.haksik.haksik.gisik.service.GisikService;
+import ssu.haksik.haksik.service.GisikService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
