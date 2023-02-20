@@ -9,18 +9,18 @@ import ssu.haksik.haksik.common.response.FoodResponse;
 import ssu.haksik.haksik.facultyLounge.service.FacultyLoungeService;
 
 @RestController
-@RequestMapping("/haksik/faculty")
+@RequestMapping("/haksik")
 @RequiredArgsConstructor
 public class FacultyLoungeController {
 
     private final FacultyLoungeService facultyLoungeService;
 
-    @PostMapping()// 카카오 API에서 post 방식만 지원함
+    @PostMapping("/facultylounge")// 카카오 API에서 post 방식만 지원함
     public FoodResponse getFacultyLoungeFood(){
         return facultyLoungeService.getFacultyLoungeFood();
     }
 
-    @PostMapping("/save")// 카카오 API에서 post 방식만 지원함
+    @PostMapping()// 카카오 API에서 post 방식만 지원함
     public void saveFacultyLoungeFood() throws IOException {
         facultyLoungeService.saveFacultyFoodMenu();
     }
