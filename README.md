@@ -5,7 +5,7 @@
 
 &nbsp;
 
-> **숭실 학식 알림 프로젝트**
+> **숭실 학식 알람 프로젝트**
 
 <img src="https://user-images.githubusercontent.com/71380240/212450097-cd597e85-9fc9-47e6-8dd3-086a6030a265.jpg" width="300" height="100" /> 
 
