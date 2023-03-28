@@ -43,7 +43,7 @@ gradlew clean build
 
 * Github: [@seoeunbae](https://github.com/seoeunbae)
 * LinkedIn: [@SeoeunBae](https://linkedin.com/in/SeoeunBae)
-* 
+
 👤 **ohjinhokor**
 
 * Github: [@ohjinhokor](https://github.com/ohjinhokor)
