@@ -26,6 +26,9 @@
   <img src="https://img.shields.io/badge/-CodeDeploy-red"/>&nbsp
   <img src="https://img.shields.io/badge/-Nginx-red"/>&nbsp
 </p>
+## 구조도
+
+![image](https://user-images.githubusercontent.com/71380240/228118176-47108b9b-0568-4073-862e-b097bd3e2184.png)
 
 ## Usage
 
